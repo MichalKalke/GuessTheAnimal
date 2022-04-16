@@ -30,7 +30,7 @@ main {
 }
 
 .left {
-  height: 40vh;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +44,7 @@ main {
 }
 
 .right {
-  height: 20vh;
+  height: 30vh;
   width: 20rem;
   font-size: 1.5rem;
 }
