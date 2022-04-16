@@ -18,7 +18,7 @@ html {
 
 header {
   position: relative;
-  height: 23vw;
+  height: 25vw;
   border-bottom: 7px;
 }
 
@@ -157,4 +157,12 @@ footer {
 
 .contribution {
   text-align: right;
+}
+
+.next {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  bottom: -90%;
 }
