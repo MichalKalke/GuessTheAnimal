@@ -1,5 +1,20 @@
 'use strict';
 
+let score = 0;
+const playerScore = document.querySelector('.label-score');
+let secretNumber = Math.trunc(Math.random() * 15);
+let nextRiddle = false;
+let usedNumbers = []; //when in specific game the number was used, it goes to usedNumbers
+//remove hidden
+const hiddenAnimal = document.querySelector('.animal');
+const leftSection = document.querySelector('.left');
+const rightSection = document.querySelector('.right');
+const infoSpecies = document.querySelector('.infoSpecies');
+
+//addhidden
+const riddleMessage = document.querySelector('.riddle');
+const startBtn = document.querySelector('.start');
+
 class Animal {
   constructor(json) {
     Object.assign(this, json);
@@ -16,6 +31,27 @@ for (let i = 0; i < rawArray.length - 1; i++) {
   animalsArray.push(animal);
 }
 
-console.log(rawArray);
+document.querySelector('.start').addEventListener('click', () => {
+  hiddenAnimal.classList.remove('hidden');
+  leftSection.classList.remove('hidden');
+  rightSection.classList.remove('hidden');
+  infoSpecies.classList.remove('hidden');
 
-console.log(animalsArray[3].clues[2]);
+  riddleMessage.classList.toggle('hidden');
+  startBtn.classList.toggle('hidden');
+});
+
+document.querySelector('.again').addEventListener('click', () => {
+  hiddenAnimal.classList.toggle('hidden');
+  leftSection.classList.toggle('hidden');
+  rightSection.classList.toggle('hidden');
+  infoSpecies.classList.toggle('hidden');
+
+  riddleMessage.classList.remove('hidden');
+  startBtn.classList.remove('hidden');
+  score = 9;
+  playerScore.textContent = 'Score: ' + score;
+  usedNumbers = [];
+});
+
+const play = function () {};
