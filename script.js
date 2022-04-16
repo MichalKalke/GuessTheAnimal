@@ -102,7 +102,7 @@ function addPoints(number) {
   } else {
     score -= 20;
   }
-  playerScore.textContent = score;
+  playerScore.textContent = 'Score: ' + score;
 }
 
 function gameEnded() {
@@ -128,6 +128,7 @@ nextBtn.addEventListener('click', () => {
 
 document.querySelector('.check').addEventListener('click', () => {
   const guess = guessAnimal.value;
+  riddle.setAttribute('style', 'white-space: pre;');
   console.log(guess);
   if (!guess || typeof guess === String) {
     displayMessage(`🛑 It's not an animal! 🛑`);
@@ -138,7 +139,7 @@ document.querySelector('.check').addEventListener('click', () => {
     clue++;
     if (clue < 3) {
       displayMessage('Wrong, read next clue! ＞﹏＜');
-      riddle.textContent += animalsArray[secretNumber].clues[clue];
+      riddle.textContent += `\r\n\r\n${animalsArray[secretNumber].clues[clue]}`;
     } else {
       displayMessage('Sorry but you failed (´。＿。｀)');
       checkIfNext();
