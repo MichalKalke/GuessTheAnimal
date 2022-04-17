@@ -1,0 +1,21 @@
+{
+  "name": "animal",
+  "version": "1.0.0",
+  "description": "Game to guess the animal based on clues",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichalKalke/Guess-The-Animal.git"
+  },
+  "keywords": [
+    "a-z"
+  ],
+  "author": "Michał Kalke",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.4.1"
+  }
+}
