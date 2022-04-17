@@ -4,7 +4,8 @@ let score = 0;
 const playerScore = document.querySelector('.label-score');
 let secretNumber = Math.trunc(Math.random() * 15);
 let nextRiddle = false;
-let usedNumbers = []; //when in specific game the number was used, it goes to usedNumbers
+let usedNumbers = [];
+const highScore = document.querySelector('.highscore').textContent;
 //remove hidden
 const hiddenAnimal = document.querySelector('.animal');
 const leftSection = document.querySelector('.left');
@@ -19,7 +20,7 @@ const comment = document.querySelector('.comment');
 const startBtn = document.querySelector('.start');
 
 let clue = 0;
-let games = 5;
+let games = 1;
 
 class Animal {
   constructor(json) {
@@ -29,15 +30,18 @@ class Animal {
 
 const dataJson = `[{"species": "mammals","animal": "elephant","clues": ["I live a long time", "I have tusks", "My nose is a trunk"]},{"species": "reptiles","animal": "crocodile","clues": ["My jaw is very powerful","I live on the land and in the water","I'm the face of Lacoste"]},{"species": "birds","animal": "penguin","clues": ["I love freezing weather","People think I don't have knees but I have!","I can't fly"]},{"species": "amphibians","animal": "frog","clues": ["I like water", "I croak to myself", "I'm not a toad!"]},{"species": "insects","animal": "mosquito","clues": ["I live mainly in Summer", "Noone likes me", "I'm a vampire!"]},{"species": "arachnids","animal": "scorpio","clues": ["I'm poisonous", "I have tongs", "My tail is a spike"]},{"species": "mammals","animal": "panda","clues": ["I'm a China national", "I'm fluffy", "I eat bamboo"]},{"species": "reptiles","animal": "chameleon","clues": ["Now you can see me, now you can't","My eyes see everything","I can change my color"]},{"species": "birds","animal": "stork","clues": ["I bring you children","In winter I reside in Africa","When I come back you say it's spring"]},{"species": "insects","animal": "bee","clues": ["I'm buzzzzing", "I'm useful", "My name is Maja"]},{"species": "mammals","animal": "lemur","clues": ["Call me Julian, King Julian","I like to move it!","I came from Madagascar"]},{"species": "reptiles","animal": "salamander","clues": ["I'm in spots", "I have a tail", "I'm close to salame"]},{"species": "insects","animal": "mantis","clues": ["My eyes are beautiful","I have 2 swords","I eat my husband for breakfast"]},{"species": "arthropod","animal": "lobster","clues": ["My tail is strong so my paws","My paws are nippers","I'm very yummy"]},{"species": "insects","animal": "bittern","clues": ["Big Boi", "I'm not bumblebee", "Fart is a synomime in Polish"]}]`;
 
+//const dataJson = `[{"species": "arthropod","animal": "lobster","clues": ["My tail is strong so my paws","My paws are nippers","I'm very yummy"]},{"species": "insects","animal": "bittern","clues": ["Big Boi", "I'm not bumblebee", "Fart is a synomime in Polish"]},{"species": "reptiles","animal": "salamander","clues": ["I'm in spots", "I have a tail", "I'm close to salame"]}]`;
+
 const rawArray = JSON.parse(dataJson);
 const animalsArray = [];
 
-for (let i = 0; i < rawArray.length - 1; i++) {
+for (let i = 0; i < rawArray.length; i++) {
   const animal = new Animal(rawArray[i]);
   animalsArray.push(animal);
 }
 
 document.querySelector('.start').addEventListener('click', () => {
+  guessAnimal.classList.remove('hidden');
   hiddenAnimal.classList.remove('hidden');
   leftSection.classList.remove('hidden');
   rightSection.classList.remove('hidden');
@@ -62,7 +66,9 @@ document.querySelector('.again').addEventListener('click', () => {
   playerScore.textContent = 'Score: ' + score;
   usedNumbers = [];
   init();
-  games = 5;
+  games = 1;
+  //hiddenAnimal.removeAttribute('style', 'white-space: pre;');
+  //rightSection.setAttribute('style', 'height: 20vw;');
 });
 
 function init() {
@@ -76,13 +82,15 @@ function init() {
 
 const play = function () {
   secretNumber = Math.trunc(Math.random() * 15);
+  console.log(secretNumber);
   if (usedNumbers.length === 0 || usedNumbers.indexOf(secretNumber)) {
     usedNumbers.push(secretNumber);
-    console.log('jest git');
+    console.log('Nice');
     infoSpecies.textContent = 'Species:\n' + animalsArray[secretNumber].species;
     riddle.textContent = animalsArray[secretNumber].clues[clue];
+    console.log(animalsArray[secretNumber].animal);
   } else {
-    console.log('oj juz byla');
+    console.log('Used :(');
     play();
   }
 };
@@ -105,8 +113,25 @@ function addPoints(number) {
   playerScore.textContent = 'Score: ' + score;
 }
 
+function displayEndMessage(message) {
+  // hiddenAnimal.setAttribute('style', 'white-space: pre;');
+  // rightSection.setAttribute('style', 'height: 5vw;');
+  // hiddenAnimal.textContent += '\r\n\r\n' + message;
+}
+
 function gameEnded() {
-  console.log('PLEASE STAND BY... Will be ready soon');
+  displayMessage('The END!');
+  guessAnimal.classList.add('hidden');
+  document.querySelector('.middle').classList.add('hidden');
+
+  if (score < highScore && score > 0) {
+    displayEndMessage('nie ma źle');
+  } else if (score < 0) {
+    displayEndMessage('tragedia');
+  } else {
+    document.querySelector('.highscore').textContent = score;
+    displayEndMessage('najsu');
+  }
 }
 
 function checkIfNext() {
@@ -129,8 +154,7 @@ nextBtn.addEventListener('click', () => {
 document.querySelector('.check').addEventListener('click', () => {
   const guess = guessAnimal.value;
   riddle.setAttribute('style', 'white-space: pre;');
-  console.log(guess);
-  if (!guess || typeof guess === String) {
+  if (!guess) {
     displayMessage(`🛑 It's not an animal! 🛑`);
   } else if (guess === animalsArray[secretNumber].animal) {
     displayMessage('Correct! ヽ(✿ﾟ▽ﾟ)ノ');
