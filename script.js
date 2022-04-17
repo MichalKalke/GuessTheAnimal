@@ -1,5 +1,25 @@
 'use strict';
 
+let songMuted = false;
+
+document.querySelector('.muteBtn').addEventListener('click', () => {
+  const mute = document.getElementById('song');
+  if (songMuted === false) {
+    console.log('here');
+    mute.muted = true;
+    songMuted = true;
+    document
+      .querySelector('.muteBtn')
+      .setAttribute('style', 'background-color: rgb(179, 14, 14);');
+  } else {
+    mute.muted = false;
+    songMuted = false;
+    document
+      .querySelector('.muteBtn')
+      .setAttribute('style', 'background-color: rgb(7, 196, 7);');
+  }
+});
+
 let score = 0;
 const playerScore = document.querySelector('.label-score');
 let secretNumber = Math.trunc(Math.random() * 15);
