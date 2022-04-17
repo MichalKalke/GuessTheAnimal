@@ -20,7 +20,7 @@ const comment = document.querySelector('.comment');
 const startBtn = document.querySelector('.start');
 
 let clue = 0;
-let games = 1;
+let games = 5;
 
 class Animal {
   constructor(json) {
@@ -66,9 +66,9 @@ document.querySelector('.again').addEventListener('click', () => {
   playerScore.textContent = 'Score: ' + score;
   usedNumbers = [];
   init();
-  games = 1;
-  //hiddenAnimal.removeAttribute('style', 'white-space: pre;');
-  //rightSection.setAttribute('style', 'height: 20vw;');
+  games = 5;
+  document.querySelector('.middle').classList.remove('hidden');
+  rightSection.removeAttribute('style', 'height: 5vw;');
 });
 
 function init() {
@@ -114,9 +114,9 @@ function addPoints(number) {
 }
 
 function displayEndMessage(message) {
-  // hiddenAnimal.setAttribute('style', 'white-space: pre;');
-  // rightSection.setAttribute('style', 'height: 5vw;');
-  // hiddenAnimal.textContent += '\r\n\r\n' + message;
+  hiddenAnimal.setAttribute('style', 'white-space: pre;');
+  rightSection.setAttribute('style', 'height: 5vw;');
+  hiddenAnimal.textContent += '\r\n\r\n' + message;
 }
 
 function gameEnded() {
@@ -125,12 +125,12 @@ function gameEnded() {
   document.querySelector('.middle').classList.add('hidden');
 
   if (score < highScore && score > 0) {
-    displayEndMessage('nie ma źle');
+    displayEndMessage('Nice! Close to beat best! 🙌');
   } else if (score < 0) {
-    displayEndMessage('tragedia');
+    displayEndMessage('This was horrible 💫');
   } else {
     document.querySelector('.highscore').textContent = score;
-    displayEndMessage('najsu');
+    displayEndMessage('👑 AWESOME! NEW HIGHSCORE! 👑');
   }
 }
 
