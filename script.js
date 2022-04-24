@@ -114,7 +114,10 @@ function init() {
 
 const play = function () {
   secretNumber = Math.trunc(Math.random() * 15);
-  if (usedNumbers.length === 0 || usedNumbers.indexOf(secretNumber)) {
+  if (
+    usedNumbers.length === 0 ||
+    !usedNumbers.some(num => num === secretNumber)
+  ) {
     usedNumbers.push(secretNumber);
     console.log('Nice');
     infoSpecies.textContent = 'Species:\n' + animalsArray[secretNumber].species;
